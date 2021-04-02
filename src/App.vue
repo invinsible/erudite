@@ -1,17 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <letters 
+      :mainWord="mainWord"
+    />
+    <user-input
+      :answers="rightAnswers"
+    />    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Letters from '@/components/Letters'
+import UserInput from '@/components/UserInput'
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    Letters,
+    UserInput
+  },
+
+  data() {
+    return {
+      mainWord : 'договор',
+      rightAnswers : ['договор','ров','огород']
+    }
   }
 }
 </script>
