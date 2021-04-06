@@ -2,19 +2,23 @@
     <div>
         <form>
             <input type="text" v-model="current" :class="{'input-error' : alertMessage}">
-            <button @click.prevent="check">Check</button>
-            <p v-if="alertMessage" style="color: red;">{{alertMessage}}</p>                
+            <button @click.prevent="check" :disabled="!answersArray.length">Check</button>
+            <button @click.prevent="dealDamage" :disabled="!answersArray.length">End round</button>
+            <p v-if="alertMessage" style="color: red;">{{alertMessage}}</p>
         </form>
-        <answer-list :answersArray="answersArray" :trueList="trueList"/>        
+        <answer-list :answersArray="answersArray" :trueList="trueList"/>
+        <p v-if="false">Игрок: <health-bar :hp="playerHealth"/></p>
+        <p v-if="false">Противник: <health-bar :hp="enemyHealth"/></p> 
     </div>
 </template>
 
 <script>
-import AnswerList from './AnswerList.vue';
+import AnswerList from './AnswerList';
+import HealthBar from './HealthBar';
 
 export default {
-    components: { AnswerList },
-    props: {
+    components: { AnswerList, HealthBar },
+    props: {        
         answers: Array
     },    
 
@@ -23,7 +27,18 @@ export default {
             current: null,
             answersArray: [...this.answers],
             alertMessage: null,
-            trueList: []
+            trueList: [],
+
+            enemyHealth : 3,
+            playerHealth: 3
+        }
+    },
+
+    watch: {
+        answersArray(value) {            
+            if(value.length == 0) {
+                this.dealDamage();
+            }
         }
     },
 
@@ -45,7 +60,13 @@ export default {
             }
 
             this.current = null;
-        },       
+        },
+
+        dealDamage() {            
+            this.enemyHealth -= this.trueList.length;
+            this.playerHealth -= this.answersArray.length;
+            this.trueList = [];
+        }
         
     }
 }

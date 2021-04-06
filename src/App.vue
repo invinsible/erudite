@@ -5,7 +5,7 @@
     />
     <user-input
       :answers="rightAnswers"
-    />    
+    />
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
   components: {
     Letters,
     UserInput
+
   },
 
   data() {

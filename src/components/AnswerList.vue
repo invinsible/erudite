@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p><small>{{answersArray}}</small></p>
+        <p v-show="false"><small>{{answersArray}}</small></p>
         <div class="two-columns">
             <div class="col">
                 <p>Правильные ответы:</p>
