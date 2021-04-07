@@ -6,20 +6,23 @@
     <user-input
       :answers="rightAnswers"
     />
+
+    <antonim-list/>
   </div>
 </template>
 
 <script>
 import Letters from '@/components/Letters'
 import UserInput from '@/components/UserInput'
+import AntonimList from '@/components/antonim/AntonimList'
 
 export default {
   name: 'App',
 
   components: {
     Letters,
-    UserInput
-
+    UserInput,
+    AntonimList
   },
 
   data() {
