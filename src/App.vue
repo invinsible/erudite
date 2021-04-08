@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <header>
-      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Антонимы</router-link>
-      <router-link :to="{name: 'erudit'}" class="link" active-class="link-active">Эрудит</router-link>
+      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Être</router-link>
+      <!-- <router-link :to="{name: 'erudit'}" class="link" active-class="link-active">Эрудит</router-link> -->
     </header>    
     <router-view/>
   </div>
