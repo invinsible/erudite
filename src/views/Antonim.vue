@@ -16,48 +16,56 @@
             </div>        
         </div>
         <div>
-            <b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b>         
+            <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
             
             <p v-if="!list.find(el => el.active == true)">Конец</p>
-            <p v-else><button @click.prevent="checkAntonim">Check</button></p>
+            <p v-else>
+                <button
+                    @click.prevent="checkAntonim"
+                    class="check-answer"
+                    :disabled="!check1 || !check2"
+                >Check
+                </button>
+            </p>
         </div>
     </section>    
 </template>
 
 <script>
+//import { shuffle } from '@/assets/functions.js';
 export default {
     data() {
         return {
             list: [
                 {
                     id: 1,
-                    value1: 'белый',
-                    value2: 'черный',
+                    value1: 'white',
+                    value2: 'black',
                     active: true
                 },
                 {
                     id: 2,
-                    value1: 'мокрый',
-                    value2: 'сухой',
+                    value1: 'day',
+                    value2: 'night',
                     active: true
                 },
                 {
                     id: 3,
-                    value1: 'быстрый',
-                    value2: 'медленный',
+                    value1: 'big',
+                    value2: 'small',
                     active: true
                 },
                 {
                     id: 4,
-                    value1: 'громкий',
-                    value2: 'тихий',
+                    value1: 'slow',
+                    value2: 'fast',
                     active: true
                 }
             ],
             check1: null,
             check2: null
         }
-    },   
+    },    
     
     methods: {
         checkAntonim() {
@@ -74,6 +82,27 @@ export default {
 
 
 <style scoped>
+    .check-answer {
+        padding: 10px 20px;
+        margin: 0 auto;
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgb(37, 131, 111);
+        color: #fff;
+        text-align: center;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.3s linear;
+    }
+    .check-answer:hover {
+        opacity: 0.87;
+    }
+    .check-answer:disabled {
+        background-color: #ccc;
+        cursor: auto;
+    }
     .two-columns {
         margin: 0 auto;
         max-width: 450px;        
