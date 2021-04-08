@@ -16,18 +16,15 @@
             </div>        
         </div>
         <div>
-            <b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b>
-            <div v-if="check1 && check2">
-                <p v-if="check" style="color: green;">Правильно</p>
-                <p v-else style="color: red;">Не верно</p>
-            </div>
+            <b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b>         
             
+            <p v-if="!list.find(el => el.active == true)">Конец</p>
+            <p v-else><button @click.prevent="checkAntonim">Check</button></p>
         </div>
     </section>    
 </template>
 
 <script>
-
 export default {
     data() {
         return {
@@ -57,20 +54,21 @@ export default {
                     active: true
                 }
             ],
-
             check1: null,
             check2: null
         }
-    },
-    computed: {
-        check() {
-            if(!this.check1 || !this.check2) {                
-                return false
+    },   
+    
+    methods: {
+        checkAntonim() {
+            if(this.check1 == this.check2) {                
+                let current = this.list.find(item => item.id == this.check1.id);
+                current.active = false;
             }
 
-            return this.check1 == this.check2
+            this.check1 = null, this.check2 = null;
         }
-    },
+    }
 }
 </script>
 
@@ -82,17 +80,20 @@ export default {
         display: flex;
         align-items: flex-start;
     }
-
     .col {
         padding: 20px;
         min-height: 150px;
         width: 50%;
         border: 1px dotted #ccc;
     }
+    label {
+        padding: 5px 10px;
+        display: block;
+        cursor: pointer;
+    }
     input {
         display: none;
     }
-
     input:checked + label{
         font-weight: bold;
     }
