@@ -14,9 +14,9 @@
                 </div>
             </div>             
         </div>
-        <div>
+        <div class="check-section">
+            <notice-item v-if="notice" :notice="notice"/>
             <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
-            
             <p v-if="!list.find(el => el.active == true)">Bingo!</p>
             <p v-else>
                 <button
@@ -32,7 +32,11 @@
 
 <script>
 import { shuffle } from '@/assets/functions.js';
+import NoticeItem from '@/components/antonim/NoticeItem';
 export default {
+    components: {
+        NoticeItem
+    },
     data() {
         return {
             list: [
@@ -74,7 +78,19 @@ export default {
                 }
             ],            
             check1: null,
-            check2: null
+            check2: null,
+            notice: null
+        }
+    },
+    watch: {
+        notice(value) { 
+            if(value == null) {
+                return null
+            }           
+            setTimeout(() => {
+                this.notice = null
+                this.check1 = null, this.check2 = null
+            } , 2000);
         }
     },
     computed: {
@@ -88,11 +104,16 @@ export default {
     methods: {
         checkAntonim() {
             if(this.check1 == this.check2) {
-                let current = this.list.find(item => item.id == this.check1.id);
-                current.active = false;
-            }
+                this.trueAnswer();
+                this.notice = 'good'
+            } else {
+                this.notice = 'bad'
+            }            
+        },
 
-            this.check1 = null, this.check2 = null;
+        trueAnswer() {
+            let current = this.list.find(item => item.id == this.check1.id);
+            current.active = false;            
         }
     }
 }
