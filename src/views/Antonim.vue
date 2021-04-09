@@ -4,20 +4,20 @@
             <div class="col">                
                 <div v-for="el in basicList" :key="el.id">
                     <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
-                    <label :for="el.id + 11" v-if="el.active">{{el.value1}}</label>
+                    <label :for="el.id + 11" :class="{'no-active': !el.active}">{{el.value1}}</label>
                 </div>
             </div>
             <div class="col">                
                 <div v-for="el in shuffleList" :key="el.id">
                     <input type="radio" :value="el" v-model="check2" :id="el.id + 22">
-                    <label :for="el.id + 22" v-if="el.active">{{el.value2}}</label>
+                    <label :for="el.id + 22" :class="{'no-active': !el.active}">{{el.value2}}</label>
                 </div>
             </div>             
         </div>
         <div>
             <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
             
-            <p v-if="!list.find(el => el.active == true)">Конец</p>
+            <p v-if="!list.find(el => el.active == true)">Bingo!</p>
             <p v-else>
                 <button
                     @click.prevent="checkAntonim"
@@ -38,38 +38,38 @@ export default {
             list: [
                 {
                     id: 1,
-                    value1: 'je',
-                    value2: 'Suis',
+                    value1: 'Je',
+                    value2: 'suis',
                     active: true
                 },
                 {
                     id: 2,
-                    value1: 'tu',
-                    value2: 'Es',
+                    value1: 'Tu',
+                    value2: 'es',
                     active: true
                 },
                 {
                     id: 3,
-                    value1: 'il, elle, on',
-                    value2: 'Est',
+                    value1: 'Il, Elle, On',
+                    value2: 'est',
                     active: true
                 },
                 {
                     id: 4,
                     value1: 'Nous',
-                    value2: 'Sommes',
+                    value2: 'sommes',
                     active: true
                 },
                 {
                     id: 5,
                     value1: 'Vous',
-                    value2: 'Êtes',
+                    value2: 'êtes',
                     active: true
                 },
                 {
                     id: 6,
-                    value1: 'Ils, elles',
-                    value2: 'Sont',
+                    value1: 'Ils, Elles',
+                    value2: 'sont',
                     active: true
                 }
             ],            
@@ -101,6 +101,7 @@ export default {
 
 <style scoped>
     .check-answer {
+        position: relative;
         padding: 10px 20px;
         margin: 0 auto;
         display: block;
@@ -113,6 +114,7 @@ export default {
         border: none;
         cursor: pointer;
         transition: opacity 0.3s linear;
+        z-index: 10;
     }
     .check-answer:hover {
         opacity: 0.87;
@@ -143,5 +145,11 @@ export default {
     }
     input:checked + label{
         font-weight: bold;
+    }
+    .no-active {
+        pointer-events: none;
+        color: green;
+        opacity: 0.5;
+        text-decoration: line-through;
     }
 </style>

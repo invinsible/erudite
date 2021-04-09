@@ -7,6 +7,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'index',    
+    component: Antonim
+  },
+  {
     path: '/antonim',
     name: 'antonim',
     component: Antonim
