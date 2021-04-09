@@ -1,34 +1,14 @@
 <template>
   <div id="app">
-    <letters 
-      :mainWord="mainWord"
-    />
-    <user-input
-      :answers="rightAnswers"
-    />    
+    <header>
+      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Être</router-link>
+      <!-- <router-link :to="{name: 'erudit'}" class="link" active-class="link-active">Эрудит</router-link> -->
+    </header>    
+    <router-view/>
   </div>
 </template>
 
-<script>
-import Letters from '@/components/Letters'
-import UserInput from '@/components/UserInput'
 
-export default {
-  name: 'App',
-
-  components: {
-    Letters,
-    UserInput
-  },
-
-  data() {
-    return {
-      mainWord : 'договор',
-      rightAnswers : ['договор','ров','огород','вор']
-    }
-  }
-}
-</script>
 
 <style>
 #app {
@@ -38,5 +18,24 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+header {
+  margin: 0 auto 30px;
+  max-width: 450px;
+  display: flex;
+  align-items: center;  
+}
+
+.link {
+  margin: 0 15px;
+  display: block;
+  color: #ccc;
+  border-bottom: 1px solid #ccc;
+  text-decoration: none;
+}
+
+.link-active {
+  color: #000;
 }
 </style>
