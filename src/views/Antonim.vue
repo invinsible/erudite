@@ -1,6 +1,7 @@
 <template>
     <section>
-        <div class="two-columns">
+        <p v-if="isLoading">Загрузка...</p>
+        <div class="two-columns" v-else>
             <div class="col">                
                 <div v-for="el in basicList" :key="el.id">
                     <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
@@ -34,52 +35,20 @@
 import { shuffle } from '@/assets/functions.js';
 import NoticeItem from '@/components/antonim/NoticeItem';
 export default {
+    mounted() {    
+        this.getData();    
+    },
     components: {
         NoticeItem
     },
     data() {
         return {
-            list: [
-                {
-                    id: 1,
-                    value1: 'Je',
-                    value2: 'suis',
-                    active: true
-                },
-                {
-                    id: 2,
-                    value1: 'Tu',
-                    value2: 'es',
-                    active: true
-                },
-                {
-                    id: 3,
-                    value1: 'Il, Elle, On',
-                    value2: 'est',
-                    active: true
-                },
-                {
-                    id: 4,
-                    value1: 'Nous',
-                    value2: 'sommes',
-                    active: true
-                },
-                {
-                    id: 5,
-                    value1: 'Vous',
-                    value2: 'êtes',
-                    active: true
-                },
-                {
-                    id: 6,
-                    value1: 'Ils, Elles',
-                    value2: 'sont',
-                    active: true
-                }
-            ],            
+            list: [],            
             check1: null,
             check2: null,
-            notice: null
+            notice: null,
+
+            isLoading: false
         }
     },
     watch: {
@@ -88,8 +57,7 @@ export default {
                 return null
             }           
             setTimeout(() => {
-                this.notice = null
-                this.check1 = null, this.check2 = null
+                this.setDefault()
             } , 2000);
         }
     },
@@ -114,11 +82,43 @@ export default {
         trueAnswer() {
             let current = this.list.find(item => item.id == this.check1.id);
             current.active = false;            
-        }
+        },
+
+        setDefault() {
+            this.notice = null
+            this.check1 = null, this.check2 = null
+        },
+
+      getData() {
+        this.isLoading = true;
+        fetch('/data.json')
+        .then(response => {
+            if (response.ok) {
+            return response.json()
+            }
+        })
+        .then(data => {
+            this.isLoading = false;            
+            const wordsList = [];
+
+            for (const id in data.words) {
+            wordsList.push({
+                id: id,
+                value1: data.words[id].value1,            
+                value2: data.words[id].value2,            
+                active: data.words[id].active,
+                
+            });
+            }
+            this.list = wordsList;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    },
     }
 }
 </script>
-
 
 <style scoped>
     .check-answer {

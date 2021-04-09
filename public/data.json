@@ -1,0 +1,40 @@
+{
+    "words" : [
+        {
+            "id": 1,
+            "value1": "Je",
+            "value2": "suis",
+            "active": true
+        },
+        {
+            "id": 2,
+            "value1": "Tu",
+            "value2": "es",
+            "active": true
+        },
+        {
+            "id": 3,
+            "value1": "Il, Elle, On",
+            "value2": "est",
+            "active": true
+        },
+        {
+            "id": 4,
+            "value1": "Nous",
+            "value2": "sommes",
+            "active": true
+        },
+        {
+            "id": 5,
+            "value1": "Vous",
+            "value2": "êtes",
+            "active": true
+        },
+        {
+            "id": 6,
+            "value1": "Ils, Elles",
+            "value2": "sont",
+            "active": true
+        }
+    ]
+}
