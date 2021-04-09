@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       mainWord : 'договор',
-      rightAnswers : ['договор','ров','огород']
+      rightAnswers : ['договор','ров','огород','вор']
     }
   }
 }
