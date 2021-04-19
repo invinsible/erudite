@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <header>
-      <router-link :to="{name: 'index'}" class="link" active-class="link-active">Être</router-link>
-      <!-- <router-link :to="{name: 'erudit'}" class="link" active-class="link-active">Эрудит</router-link> -->
+        <router-link to="/non" class="link" active-class="link-active">non</router-link>
+        <router-link to="/etre" class="link" active-class="link-active">etre</router-link>
     </header>    
     <router-view/>
   </div>
@@ -70,12 +70,16 @@ header {
 }
 
 .link {
-  margin: 0 15px;
-  display: block;
+  margin: 0 15px;  
   font-size: 25px;
   color: #ccc;
   border-bottom: 1px solid #ccc;
   text-decoration: none;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #000;
 }
 
 .link-active {

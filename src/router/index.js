@@ -10,10 +10,9 @@ const routes = [
     path: '/',
     name: 'index',    
     component: Antonim
-  },
+  },  
   {
-    path: '/antonim',
-    name: 'antonim',
+    path: '/:op',    
     component: Antonim
   },
   {
@@ -21,7 +20,6 @@ const routes = [
     name: 'erudit',
     component: Erudit
   }
-
 ]
 
 const router = new VueRouter({

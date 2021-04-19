@@ -1,33 +1,36 @@
 <template>
-    <section>
-        <p v-if="isLoading">Загрузка...</p>
-        <div class="two-columns" v-else>
-            <div class="col">                
-                <div v-for="el in basicList" :key="el.id">
-                    <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
-                    <label :for="el.id + 11" :class="{'no-active': !el.active}">{{el.value1}}</label>
+    <section>       
+        <div v-if="path">
+            <p v-if="isLoading">Загрузка...</p>        
+            <div class="two-columns" v-else>
+                <div class="col">                
+                    <div v-for="el in basicList" :key="el.id">
+                        <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
+                        <label :for="el.id + 11" :class="{'no-active': !el.active}">{{el.value1}}</label>
+                    </div>
                 </div>
+                <div class="col">                
+                    <div v-for="el in shuffleList" :key="el.id">
+                        <input type="radio" :value="el" v-model="check2" :id="el.id + 22">
+                        <label :for="el.id + 22" :class="{'no-active': !el.active}">{{el.value2}}</label>
+                    </div>
+                </div>             
             </div>
-            <div class="col">                
-                <div v-for="el in shuffleList" :key="el.id">
-                    <input type="radio" :value="el" v-model="check2" :id="el.id + 22">
-                    <label :for="el.id + 22" :class="{'no-active': !el.active}">{{el.value2}}</label>
-                </div>
-            </div>             
+            <div class="check-section" v-if="!isLoading">
+                <notice-item v-if="notice" :notice="notice"/>
+                <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
+                <p v-if="!list.find(el => el.active == true)">Bingo!</p>
+                <p v-else>
+                    <button
+                        @click.prevent="checkAntonim"
+                        class="check-answer"
+                        :disabled="!check1 || !check2"
+                    >Check
+                    </button>
+                </p>
+            </div>
         </div>
-        <div class="check-section">
-            <notice-item v-if="notice" :notice="notice"/>
-            <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
-            <p v-if="!list.find(el => el.active == true)">Bingo!</p>
-            <p v-else>
-                <button
-                    @click.prevent="checkAntonim"
-                    class="check-answer"
-                    :disabled="!check1 || !check2"
-                >Check
-                </button>
-            </p>
-        </div>
+        
     </section>    
 </template>
 
@@ -35,15 +38,12 @@
 import { shuffle } from '@/assets/functions.js';
 import NoticeItem from '@/components/antonim/NoticeItem';
 export default {
-    mounted() {    
-        this.getData();    
-    },
     components: {
         NoticeItem
     },
     data() {
         return {
-            list: [],            
+            list: [],
             check1: null,
             check2: null,
             notice: null,
@@ -52,13 +52,19 @@ export default {
         }
     },
     watch: {
-        notice(value) { 
+        notice(value) {
             if(value == null) {
                 return null
             }           
             setTimeout(() => {
                 this.setDefault()
             } , 2000);
+        },
+        path : {
+            immediate: true,
+            handler() {
+                this.getData();
+            }
         }
     },
     computed: {
@@ -67,6 +73,9 @@ export default {
         },
         basicList() {
             return [... this.list]
+        },
+        path() {
+            return this.$route.params.op
         }
     },    
     methods: {
@@ -89,33 +98,35 @@ export default {
             this.check1 = null, this.check2 = null
         },
 
-      getData() {
-        this.isLoading = true;
-        fetch('/data.json')
-        .then(response => {
-            if (response.ok) {
-            return response.json()
-            }
-        })
-        .then(data => {
-            this.isLoading = false;            
-            const wordsList = [];
-
-            for (const id in data.words) {
-            wordsList.push({
-                id: id,
-                value1: data.words[id].value1,            
-                value2: data.words[id].value2,            
-                active: data.words[id].active,
+        getData() {
+            this.isLoading = true;        
+            fetch(`${this.path}.json`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+            })
+            .then(data => {
+                this.isLoading = false;            
+                const wordsList = [];           
                 
-            });
-            }
-            this.list = wordsList;
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    },
+                for (const id in data.words) {
+                wordsList.push({
+                    id: id,
+                    value1: data.words[id].value1,            
+                    value2: data.words[id].value2,            
+                    active: data.words[id].active,
+                    
+                });
+                }
+
+                console.log(wordsList);
+                this.list = wordsList;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
     }
 }
 </script>
