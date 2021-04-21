@@ -3,18 +3,18 @@
         <div v-if="path">
             <p v-if="isLoading">Загрузка...</p>        
             <div class="two-columns" v-else>
-                <div class="col">                
-                    <div v-for="el in basicList" :key="el.id">
-                        <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
-                        <label :for="el.id + 11" :class="{'no-active': !el.active}">{{el.value1}}</label>
-                    </div>
-                </div>
-                <div class="col">                
-                    <div v-for="el in shuffleList" :key="el.id">
-                        <input type="radio" :value="el" v-model="check2" :id="el.id + 22">
-                        <label :for="el.id + 22" :class="{'no-active': !el.active}">{{el.value2}}</label>
-                    </div>
-                </div>             
+                <antonim-item 
+                    :list="basicList"
+                    :side="1"
+                    :id="11"
+                    @check="check1 = $event"
+                />
+                <antonim-item 
+                    :list="shuffleList"
+                    :side="2"
+                    :id="22"
+                    @check="check2 = $event"
+                />                            
             </div>
             <div class="check-section" v-if="!isLoading">
                 <notice-item v-if="notice" :notice="notice"/>
@@ -37,9 +37,12 @@
 <script>
 import { shuffle } from '@/assets/functions.js';
 import NoticeItem from '@/components/antonim/NoticeItem';
+import AntonimItem from '@/components/antonim/AntonimItem';
+
 export default {
     components: {
-        NoticeItem
+        NoticeItem,
+        AntonimItem
     },
     data() {
         return {
@@ -90,12 +93,13 @@ export default {
 
         trueAnswer() {
             let current = this.list.find(item => item.id == this.check1.id);
-            current.active = false;            
+            current.active = false;
         },
 
         setDefault() {
             this.notice = null
-            this.check1 = null, this.check2 = null
+            this.check1 = null
+            this.check2 = null
         },
 
         getData() {
@@ -118,9 +122,7 @@ export default {
                     active: data.words[id].active,
                     
                 });
-                }
-
-                console.log(wordsList);
+                }                
                 this.list = wordsList;
             })
             .catch(error => {
@@ -160,28 +162,5 @@ export default {
         max-width: 450px;        
         display: flex;
         align-items: flex-start;
-    }
-    .col {
-        padding: 20px;
-        min-height: 150px;
-        width: 50%;
-        border: 1px dotted #ccc;
-    }
-    label {
-        padding: 5px 10px;
-        display: block;
-        cursor: pointer;
-    }
-    input {
-        display: none;
-    }
-    input:checked + label{
-        font-weight: bold;
-    }
-    .no-active {
-        pointer-events: none;
-        color: green;
-        opacity: 0.5;
-        text-decoration: line-through;
     }
 </style>

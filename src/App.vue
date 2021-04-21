@@ -8,7 +8,15 @@
   </div>
 </template>
 
-
+<script>
+export default {
+  data() {
+    return {
+      name: 'igor'
+    }
+  }
+}
+</script>
 
 <style>
 body {
