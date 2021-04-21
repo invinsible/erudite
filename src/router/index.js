@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Antonim from '@/views/Antonim'
-import Erudit from '@/views/Erudit'
 
 Vue.use(VueRouter)
 
@@ -9,16 +7,20 @@ const routes = [
   {
     path: '/',
     name: 'index',    
-    component: Antonim
+    component: () => import('@/views/Antonim')
   },  
   {
-    path: '/:op',    
-    component: Antonim
+    path: '/antonim/:op',
+    name: 'antonim',
+    component: () => import('@/views/Antonim'),
+    meta: {
+      showReturn: true
+    }
   },
   {
     path: '/erudit',
     name: 'erudit',
-    component: Erudit
+    component: () => import('@/views/Erudit')
   }
 ]
 

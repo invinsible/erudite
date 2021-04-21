@@ -27,7 +27,7 @@
                         @click.prevent="checkAntonim"
                         class="check-answer"
                         :disabled="!check1 || !check2"
-                    >Check
+                    >Envoyer
                     </button>
                 </p>
             </div>
@@ -63,7 +63,7 @@ export default {
                 this.setDefault()
             } , 2000);
         },
-        path : {
+        path: {
             immediate: true,
             handler() {
                 this.getData();
@@ -101,7 +101,7 @@ export default {
         },
         getData() {
             this.isLoading = true;        
-            fetch(`${this.path}.json`)
+            fetch(`/${this.path}.json`)
             .then(response => {
                 if (response.ok) {
                     return response.json()
