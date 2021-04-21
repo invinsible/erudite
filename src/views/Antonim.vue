@@ -1,5 +1,9 @@
 <template>
-    <section>       
+    <section>
+        {{this.$store.state.user}}
+        <br>
+        {{this.$store.getters['FULL_NAME']}}
+        <button @click.prevent="$store.commit('SET_USER', 'oleg')">store</button>
         <div v-if="path">
             <p v-if="isLoading">Загрузка...</p>        
             <div class="two-columns" v-else>
@@ -61,7 +65,7 @@ export default {
             }           
             setTimeout(() => {
                 this.setDefault()
-            } , 2000);
+            } , 1500);
         },
         path: {
             immediate: true,
@@ -80,7 +84,7 @@ export default {
         path() {
             return this.$route.params.op
         }
-    },    
+    },
     methods: {
         checkAntonim() {
             if(this.check1 == this.check2) {
@@ -88,7 +92,7 @@ export default {
                 this.notice = 'good'
             } else {
                 this.notice = 'bad'
-            }            
+            }                     
         },
         trueAnswer() {
             let current = this.list.find(item => item.id == this.check1.id);
@@ -100,7 +104,7 @@ export default {
             this.check2 = null
         },
         getData() {
-            this.isLoading = true;        
+            this.isLoading = true;
             fetch(`/${this.path}.json`)
             .then(response => {
                 if (response.ok) {
