@@ -59,28 +59,3 @@ export default {
 }
 </script>
 
-<style scoped>
-    .col {
-        padding: 20px;
-        min-height: 150px;
-        width: 50%;
-        border: 1px dotted #ccc;
-    }
-    label {
-        padding: 5px 10px;
-        display: block;
-        cursor: pointer;
-    }
-    input {
-        display: none;
-    }
-    input:checked + label{
-        font-weight: bold;
-    }
-    .no-active {
-        pointer-events: none;
-        color: green;
-        opacity: 0.5;
-        text-decoration: line-through;
-    }
-</style>

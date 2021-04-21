@@ -130,34 +130,3 @@ export default {
 }
 </script>
 
-<style scoped>
-    .check-answer {
-        position: relative;
-        padding: 10px 20px;
-        margin: 0 auto;
-        display: block;
-        font-size: 20px;
-        font-weight: bold;
-        background-color: rgb(37, 131, 111);
-        color: #fff;
-        text-align: center;
-        outline: none;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.3s linear;
-        z-index: 10;
-    }
-    .check-answer:hover {
-        opacity: 0.87;
-    }
-    .check-answer:disabled {
-        background-color: #ccc;
-        cursor: auto;
-    }
-    .two-columns {
-        margin: 0 auto;
-        max-width: 450px;        
-        display: flex;
-        align-items: flex-start;
-    }
-</style>
