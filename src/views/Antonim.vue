@@ -7,12 +7,14 @@
                     :list="basicList"
                     :side="1"
                     :id="11"
+                    :op="check1"                  
                     @check="check1 = $event"
                 />
                 <antonim-item 
                     :list="shuffleList"
                     :side="2"
                     :id="22"
+                    :op="check2"              
                     @check="check2 = $event"
                 />                            
             </div>
@@ -38,7 +40,6 @@
 import { shuffle } from '@/assets/functions.js';
 import NoticeItem from '@/components/antonim/NoticeItem';
 import AntonimItem from '@/components/antonim/AntonimItem';
-
 export default {
     components: {
         NoticeItem,
@@ -50,7 +51,6 @@ export default {
             check1: null,
             check2: null,
             notice: null,
-
             isLoading: false
         }
     },
@@ -90,18 +90,15 @@ export default {
                 this.notice = 'bad'
             }            
         },
-
         trueAnswer() {
             let current = this.list.find(item => item.id == this.check1.id);
             current.active = false;
         },
-
         setDefault() {
             this.notice = null
             this.check1 = null
             this.check2 = null
         },
-
         getData() {
             this.isLoading = true;        
             fetch(`${this.path}.json`)

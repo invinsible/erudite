@@ -6,7 +6,7 @@
                 :value="el"
                 :id="el.id + id"
                 v-model="userChoose"
-                @change="radioCheck"
+                @change="radioCheck"                
             >
             <label
                 :for="el.id + id"
@@ -20,24 +20,28 @@
 
 <script>
 export default {
-    model: {
-
-    },
     props: {
         list: {
             type: Array,
             required: true
         },
         side: [Number, String],
-        id: Number
+        id: Number,
+        op: Object
     },
-
     data() {
         return {
             userChoose: null
         }
     },
 
+    watch: {
+        op(value) {
+            if(!value) {
+                this.userChoose = null
+            }
+        }
+    },
     computed: {
         word() {
             if(this.side == 1) {
@@ -47,7 +51,6 @@ export default {
             }
         }
     },
-
     methods: {
         radioCheck() {
             this.$emit('check', this.userChoose);
