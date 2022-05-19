@@ -1,32 +1,27 @@
 <template>
-    <div>
-        <letters 
-        :mainWord="mainWord"
-        />
-        <user-input
-        :answers="rightAnswers"
-        />
-   
-    </div>    
-</template>
+  <div>
+    <letters :mainWord="mainWord" />
+    <user-input :answers="rightAnswers" />
+  </div>
+</template>   
 
 <script>
-import Letters from '@/components/erudit/Letters'
-import UserInput from '@/components/erudit/UserInput'
+import Letters from "@/components/erudit/Letters";
+import UserInput from "@/components/erudit/UserInput";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Letters,
-    UserInput    
+    UserInput,
   },
 
   data() {
     return {
-      mainWord : 'договор',
-      rightAnswers : ['договор','ров','огород']
-    }
-  }
-}
+      mainWord: "договор",
+      rightAnswers: ["договор", "ров", "огород"],
+    };
+  },
+};
 </script>

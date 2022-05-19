@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <header>
-      <router-link :to="{name: 'index'}" class="link" active-class="link-active">Être</router-link>
-      <!-- <router-link :to="{name: 'erudit'}" class="link" active-class="link-active">Эрудит</router-link> -->
-    </header>    
+    <!-- <header>
+      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Imparfait</router-link>
+      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Present</router-link>
+      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Passe compose</router-link>
+      <router-link :to="{name: 'antonim'}" class="link" active-class="link-active">Être</router-link>
+      <router-link :to="{name: 'erudit'}" class="link" active-class="link-active">Эрудит</router-link>
+    </header> -->
     <router-view/>
   </div>
 </template>
@@ -61,12 +64,14 @@ body {
 }
 
 header {
+  position: relative;
   margin: 0 auto 30px;
-  max-width: 450px;
-  width: 450px;
+  max-width: 550px;
+  width: 550px;
   display: flex;
   align-items: center;
   text-align: left;
+  justify-content: center;
 }
 
 .link {
@@ -76,6 +81,11 @@ header {
   color: #ccc;
   border-bottom: 1px solid #ccc;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #000;
 }
 
 .link-active {

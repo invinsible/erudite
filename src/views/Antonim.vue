@@ -1,7 +1,6 @@
 <template>
-    <section>
-        <p v-if="isLoading">Загрузка...</p>
-        <div class="two-columns" v-else>
+    <section>        
+        <div class="two-columns" >
             <div class="col">                
                 <div v-for="el in basicList" :key="el.id">
                     <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
@@ -28,16 +27,14 @@
                 </button>
             </p>
         </div>
-    </section>    
+    </section>
 </template>
 
 <script>
 import { shuffle } from '@/assets/functions.js';
 import NoticeItem from '@/components/antonim/NoticeItem';
-export default {
-    mounted() {    
-        this.getData();    
-    },
+export default {   
+    name: 'Antonim', 
     components: {
         NoticeItem
     },
@@ -47,8 +44,6 @@ export default {
             check1: null,
             check2: null,
             notice: null,
-
-            isLoading: false
         }
     },
     watch: {
@@ -59,7 +54,14 @@ export default {
             setTimeout(() => {
                 this.setDefault()
             } , 2000);
+        },
+        $route() {
+            const name = this.$route.name;    
+            this.getData(name);
         }
+    },
+    mounted() {          
+        this.getData(this.$route.name);
     },
     computed: {
         shuffleList() {
@@ -89,16 +91,14 @@ export default {
             this.check1 = null, this.check2 = null
         },
 
-      getData() {
-        this.isLoading = true;
-        fetch('/data.json')
+      getData(fileName) {
+        fetch(`/${fileName}.json`)
         .then(response => {
             if (response.ok) {
             return response.json()
             }
         })
-        .then(data => {
-            this.isLoading = false;            
+        .then(data => {        
             const wordsList = [];
 
             for (const id in data.words) {
@@ -115,7 +115,7 @@ export default {
         .catch(error => {
             console.log(error);
         })
-    },
+        },
     }
 }
 </script>

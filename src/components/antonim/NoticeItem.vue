@@ -12,8 +12,8 @@ export default {
     data() {
         return {
             phrases: {
-                good: ['Excelent', 'Nice', 'Beautiful'],
-                bad: ['Try one more', 'Oh, it is false', 'Think one more']
+                good: ['Bravo !', 'Excellent !', 'Super !', 'Correct !'],
+                bad: ['Faux !', 'Essayez encore une fois.', 'Erreur !', 'Réfléchissez !']
             }
         }
     },
