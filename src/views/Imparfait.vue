@@ -4,7 +4,7 @@
       <router-link :to="$route.name !== 'imparfait' ? {name: 'imparfait'} : {name: 'index'}" class="back-link">Back</router-link>
       <router-link :to="{name: 'etre'}" class="link" active-class="link-active">Etre</router-link>
       <router-link :to="{name: 'avoir'}" class="link" active-class="link-active">Avoir</router-link>
-      <router-link :to="{name: 'pacvoir'}" class="link" active-class="link-active">Pacvoir</router-link>
+      <router-link :to="{name: 'pouvoir'}" class="link" active-class="link-active">Pouvoir</router-link>
     </header>
     <section>
       <router-view/>

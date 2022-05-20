@@ -5,8 +5,6 @@ import Home from '@/views/Home';
 const Imparfait = () => import('@/views/Imparfait');
 const Antonim = () => import('@/views/Antonim');
 
-
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,8 +29,8 @@ const routes = [
         component: Antonim,      
       },
       {        
-        path: 'pacvoir',
-        name: 'pacvoir',
+        path: 'pouvoir',
+        name: 'pouvoir',
         component: Antonim,     
       },
     ]      
