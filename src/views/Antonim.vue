@@ -1,53 +1,63 @@
 <template>
-    <section>        
-        <div class="two-columns" >
-            <div class="col">                
-                <div v-for="el in basicList" :key="el.id">
-                    <input type="radio" :value="el" v-model="check1" :id="el.id + 11">                        
-                    <label :for="el.id + 11" :class="{'no-active': !el.active}">{{el.value1}}</label>
-                </div>
+    <section>
+              
+            <div class="two-columns">
+                <antonim-item 
+                    :list="basicList"
+                    :side="1"
+                    :id="11"
+                    :op="check1"                  
+                    @check="check1 = $event"
+                />
+                <antonim-item 
+                    :list="shuffleList"
+                    :side="2"
+                    :id="22"
+                    :op="check2"              
+                    @check="check2 = $event"
+                />                            
             </div>
-            <div class="col">                
-                <div v-for="el in shuffleList" :key="el.id">
-                    <input type="radio" :value="el" v-model="check2" :id="el.id + 22">
-                    <label :for="el.id + 22" :class="{'no-active': !el.active}">{{el.value2}}</label>
-                </div>
-            </div>             
-        </div>
-        <div class="check-section">
-            <notice-item v-if="notice" :notice="notice"/>
-            <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
-            <p v-if="!list.find(el => el.active == true)">Bingo!</p>
-            <p v-else>
-                <button
-                    @click.prevent="checkAntonim"
-                    class="check-answer"
-                    :disabled="!check1 || !check2"
-                >Check
-                </button>
-            </p>
-        </div>
+            <div class="check-section">
+                <notice-item v-if="notice" :notice="notice"/>
+                <p><b v-if="check1">{{check1.value1}}</b> - <b v-if="check2">{{check2.value2}}</b></p>
+                <p v-if="!list.find(el => el.active == true)">Bingo!</p>
+                <p v-else>
+                    <button
+                        @click.prevent="checkAntonim"
+                        class="check-answer"
+                        :disabled="!check1 || !check2"
+                    >Envoyer
+                    </button>
+                </p>
+            </div>
+       
     </section>
 </template>
+
+
+ 
+
 
 <script>
 import { shuffle } from '@/assets/functions.js';
 import NoticeItem from '@/components/antonim/NoticeItem';
-export default {   
+import AntonimItem from '@/components/antonim/AntonimItem'; 
+export default {
     name: 'Antonim', 
     components: {
-        NoticeItem
+        NoticeItem,
+        AntonimItem
     },
     data() {
         return {
-            list: [],            
+            list: [],
             check1: null,
             check2: null,
             notice: null,
         }
     },
     watch: {
-        notice(value) { 
+        notice(value) {
             if(value == null) {
                 return null
             }           
@@ -58,7 +68,14 @@ export default {
         $route() {
             const name = this.$route.name;    
             this.getData(name);
-        }
+            
+        },
+        // path: {
+        //     immediate: true,
+        //     handler() {
+        //         this.getData();
+        //     }
+        // }
     },
     mounted() {          
         this.getData(this.$route.name);
@@ -69,8 +86,11 @@ export default {
         },
         basicList() {
             return [... this.list]
+        },
+        path() {
+            return this.$route.params.op
         }
-    },    
+    },
     methods: {
         checkAntonim() {
             if(this.check1 == this.check2) {
@@ -78,20 +98,18 @@ export default {
                 this.notice = 'good'
             } else {
                 this.notice = 'bad'
-            }            
+            }                     
         },
-
         trueAnswer() {
             let current = this.list.find(item => item.id == this.check1.id);
-            current.active = false;            
+            current.active = false;
         },
-
         setDefault() {
             this.notice = null
-            this.check1 = null, this.check2 = null
+            this.check1 = null
+            this.check2 = null
         },
-
-      getData(fileName) {
+        getData(fileName) {
         fetch(`/${fileName}.json`)
         .then(response => {
             if (response.ok) {
@@ -114,63 +132,8 @@ export default {
         })
         .catch(error => {
             console.log(error);
-        })
-        },
+        })        
+    },
     }
 }
 </script>
-
-<style scoped>
-    .check-answer {
-        position: relative;
-        padding: 10px 20px;
-        margin: 0 auto;
-        display: block;
-        font-size: 20px;
-        font-weight: bold;
-        background-color: rgb(37, 131, 111);
-        color: #fff;
-        text-align: center;
-        outline: none;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.3s linear;
-        z-index: 10;
-    }
-    .check-answer:hover {
-        opacity: 0.87;
-    }
-    .check-answer:disabled {
-        background-color: #ccc;
-        cursor: auto;
-    }
-    .two-columns {
-        margin: 0 auto;
-        max-width: 450px;        
-        display: flex;
-        align-items: flex-start;
-    }
-    .col {
-        padding: 20px;
-        min-height: 150px;
-        width: 50%;
-        border: 1px dotted #ccc;
-    }
-    label {
-        padding: 5px 10px;
-        display: block;
-        cursor: pointer;
-    }
-    input {
-        display: none;
-    }
-    input:checked + label{
-        font-weight: bold;
-    }
-    .no-active {
-        pointer-events: none;
-        color: green;
-        opacity: 0.5;
-        text-decoration: line-through;
-    }
-</style>

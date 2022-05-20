@@ -4,7 +4,7 @@ import Home from '@/views/Home';
 
 const Imparfait = () => import('@/views/Imparfait');
 const Antonim = () => import('@/views/Antonim');
-import Erudit from '@/views/Erudit';
+
 
 
 Vue.use(VueRouter)
@@ -38,16 +38,15 @@ const routes = [
     ]      
   },
   {
-    path: '/antonim',
+    path: '/antonim/:op',
     name: 'antonim',
     component: Antonim,
   },
   {
     path: '/erudit',
     name: 'erudit',
-    component: Erudit
+    component: () => import('@/views/Erudit')
   }
-
 ]
 
 const router = new VueRouter({
