@@ -107,7 +107,7 @@ export default {
       this.check2 = null;
     },
     getData(fileName) {
-      fetch(`/${fileName}.json`)
+      fetch(`../${fileName}.json`)
         .then((response) => {
           if (response.ok) {
             return response.json();
