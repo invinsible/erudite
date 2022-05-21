@@ -1,0 +1,40 @@
+{
+  "words" : [
+      {
+          "id": 1,
+          "value1": "Je",
+          "value2": "pouvais",
+          "active": true
+      },
+      {
+          "id": 2,
+          "value1": "Tu",
+          "value2": "pouvais",
+          "active": true
+      },
+      {
+          "id": 3,
+          "value1": "Il",
+          "value2": "pouvait",
+          "active": true
+      },
+      {
+          "id": 4,
+          "value1": "Nous",
+          "value2": "pouvions",
+          "active": true
+      },
+      {
+          "id": 5,
+          "value1": "Vous",
+          "value2": "pouviez",
+          "active": true
+      },
+      {
+          "id": 6,
+          "value1": "Ils",
+          "value2": "pouvaient",
+          "active": true
+      }
+  ]
+}
