@@ -40,11 +40,11 @@ const routes = [
     name: 'antonim',
     component: Antonim,
   },
-  {
-    path: '/erudit',
-    name: 'erudit',
-    component: () => import('@/views/Erudit')
-  }
+  // {
+  //   path: '/erudit',
+  //   name: 'erudit',
+  //   component: () => import('@/views/Erudit')
+  // }
 ]
 
 const router = new VueRouter({
